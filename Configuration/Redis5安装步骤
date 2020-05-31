@@ -1,0 +1,58 @@
+在某个目录下 使用wget redis的下载地址，下载Redis的安装包。看README.md就完事了
+（1）wget http://-------redis官网的下载地址
+解压Redis的压缩包
+（2）tar xf redis-5.0.7.tar.gz
+
+进行编译 可以先看 vi RESDME.md
+（3）make
+安装C语言编译器
+（4）yum install gcc -y
+进行make清理
+（5）make distclean
+    接着make
+安装Redis到指定目录
+（6）make PREFIX=/opt/bigdata/redis5 install
+在环境变量中添加Redis环境
+（7）vi etc/profile
+export REDIS_HOME=/opt/bigdata/redis5
+export PATH=$PATH:$REDIS_HOME/bin
+更新环境变量
+（8）source /etc/profile
+
+部署到service
+cd utils
+./install_server.sh
+选择端口
+6379
+
+/etc/init.d Linux中的服务目录
+
+查看redis的状态
+service redis_6379 status
+
+1） vi /etc/sysconfig/network-scripts/ifcfg-ens33
+
+TYPE=Ethernet
+PROXY_METHOD=none
+BROWSER_ONLY=no
+BOOTPROTO=static
+DEFROUTE=yes
+IPV4_FAILURE_FATAL=no
+IPV6INIT=yes
+IPV6_AUTOCONF=yes
+IPV6_DEFROUTE=yes
+IPV6_FAILURE_FATAL=no
+IPV6_ADDR_GEN_MODE=stable-privacy
+NAME=ens33
+UUID=1f0ad2ce-90ab-4220-aee4-df086314a9d6
+DEVICE=ens33
+ONBOOT=yes
+IPV6_PRIVACY=no
+IPADDR=192.168.240.111
+NETMASK=255.255.255.0
+GATEWAY=192.168.240.2s
+DNS1=192.168.240.2
+NM_CONTROLLED=no
+
+虚拟机JAVA版本：1.8.0_222-ea
+位置：/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b03-1.el7.x86_64/
