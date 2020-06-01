@@ -30,7 +30,30 @@ cd utils
 查看redis的状态
 service redis_6379 status
 
-1） vi /etc/sysconfig/network-scripts/ifcfg-ens33
+
+二、Linux中通过strace命令查看Redis的执行进程和线程
+1）创建strace_dir目录用于存放追踪信息 mkdir /software/strace_dir
+
+2）在Redis服务端中 src目录下打印命令，用逆向工程去查看程序运行的过程
+strace -ff -o  /software/strace_dir/00xx  ./redis-server 
+运行命令之前要吧Redis的服务关闭，运行命令之后会出现REDIS的服务进程。
+
+3）查看Redis进程信息
+（1）cd /proc/ 目录下是很多进程的信息。
+（2）cd Redis的进程号    进入Redis的进程中，输入ls查看Redis的进程信息。
+（3）cd task    查看Redis的线程任务 ,输入ls查看Redis的线程信息。
+（4）cd .. 返回上级目录
+（5）cd fd 进入Redis文件描述符中。
+其中文件描述符 0表示输入，1表述输出，2表示错误。两个管道pipe描述符，一个epoll文件描述符，
+两个处于连接状态的Socket文件描述符。
+4）在strace_dir目录下安装帮助程序 yum install man man-pages
+（2） man 2 socket 查看系统调用中的socket，2表示系统调用
+
+
+注：netstat -natp 命令查看网络连接的进程状态
+
+
+三、 vi /etc/sysconfig/network-scripts/ifcfg-ens33
 
 TYPE=Ethernet
 PROXY_METHOD=none
