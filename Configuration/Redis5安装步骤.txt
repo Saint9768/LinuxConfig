@@ -79,3 +79,17 @@ NM_CONTROLLED=no
 
 虚拟机JAVA版本：1.8.0_222-ea
 位置：/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b03-1.el7.x86_64/
+
+四、启动kafka
+cd /software/Kafka/kafka_2.12-2.3.1/bin
+./kafka-server-start.sh -daemon /software/Kafka/kafka_2.12-2.3.1/config/server.properties
+
+3）查询所有的topic
+./kafka-topics.sh --list --zookeeper localhost:2181
+
+4）生产消息
+./kafka-console-producer.sh --broker-list EXPALINTEXT://192.168.240.111:9092 --topic test
+
+5）消费消息
+./kafka-console-consumer.sh --bootstrap-server EXPALINTEXT://192.168.240.111:9092 --topic test --from-beginning
+
